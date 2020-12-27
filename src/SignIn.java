@@ -25,7 +25,12 @@ public class SignIn {
                 break;
             }
             else{
-                System.out.println("登陆失败！");
+                if (i==(user.length-1)){
+                    System.out.println("登陆失败！");
+                }
+                else{
+                    continue;
+                }
             }
         }
     }

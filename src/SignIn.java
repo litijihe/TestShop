@@ -30,10 +30,19 @@ public class SignIn {
 
             ReadUserExcel readExcel = new ReadUserExcel();
             User user[] = readExcel.readExcel(inuser);
+
+            ReadProductExcel readProductExcel=new ReadProductExcel();
+            Product product[]=readProductExcel.readExcel(inproduct);
+
             for (int i = 0; i < user.length; i++) {
                 if (UserName.equals(user[i].getUsername()) && UserPassword.equals(user[i].getPassword())) {
-                    //System.out.println("登录成功！");
-
+                    //System.out.println("登录成功!"）;
+                    for (int j=0;j<product.length;j++){
+                        System.out.println("商品"+ (j+1) +"信息如下：");
+                        System.out.print("名字："+product[j].getName());
+                        System.out.print("\t"+"价格："+product[j].getPrice());
+                        System.out.println("\t" + "描述："+product[j].getDesc());
+                    }
 
                     bool = false;
                     break;

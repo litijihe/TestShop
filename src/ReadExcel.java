@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 public class ReadExcel {
     public User[] readExcel(File file) {
@@ -56,7 +57,8 @@ public class ReadExcel {
                 value = cell.getBooleanCellValue() + "";
                 break;
             case NUMERIC:
-                value = cell.getNumericCellValue() + "";
+                DecimalFormat df = new DecimalFormat("#");
+                value = df.format(cell.getNumericCellValue());//format返回String类型的数据
                 break;
             case FORMULA:
                 value = cell.getCellFormula();

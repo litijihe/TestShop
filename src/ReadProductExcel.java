@@ -10,12 +10,14 @@ import java.text.DecimalFormat;
 
 public class ReadProductExcel {
 
+    //通过ID查找商品是否存在
     public Product getProductById(String id,InputStream in) {
         Product products[]= null;
         try {
             XSSFWorkbook xw = new XSSFWorkbook(in);
             XSSFSheet xs = xw.getSheetAt(0);
             products = new Product[xs.getLastRowNum()];
+            //循环两次将读取商品表的所有信息
             for (int j = 1; j <= xs.getLastRowNum(); j++) {
                 XSSFRow row = xs.getRow(j);
                 Product product=new Product();//每循环一次就把电子表格的一行的数据给对象赋值
@@ -33,14 +35,15 @@ public class ReadProductExcel {
                         product.setDesc(this.getValue(cell));//给phone属性赋值
                     }
                 }
+                //如果ID相同则返回该商品
                 if (id.equals(product.getId())){
                     return product;
                 }
             }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        //否则返回空，表示没有找到
         return null;
     }
 
@@ -68,6 +71,7 @@ public class ReadProductExcel {
                         product.setDesc(this.getValue(cell));//给phone属性赋值
                     }
                 }
+                //将所有找到的商品都返回给赋值给prosucts
                 products[j-1] = product;
             }
 

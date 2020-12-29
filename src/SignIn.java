@@ -44,6 +44,7 @@ public class SignIn {
                 if (UserName.equals(user[i].getUsername()) && UserPassword.equals(user[i].getPassword())) {
                     //System.out.println("登录成功!"）;
                     for (int j=0;j<product.length;j++){
+                        //输出所有的商品信息
                         System.out.println("商品"+ (j+1) +"信息如下：");
                         System.out.print("商品ID" + product[j].getId()+"\t");
                         System.out.print("\t"+"名字："+product[j].getName());
@@ -54,11 +55,12 @@ public class SignIn {
                     int cout=0;
                     System.out.print("请输入你要寻找的商品ID：");
                     String id=sc.next();
+                    //输入流用一次读到底了，需要重置才能使用
                     inproduct=null;
                     inproduct= Class.forName("SignIn").getResourceAsStream("/ProductData.xlsx");
-
+                    //通过ID来查找商品是否存在
                     Product productes=readProductExcel.getProductById(id,inproduct);
-
+                    //数组模拟购物车，查找到以后则加入购物车，否则报出不存在说明
                     Product products[] = new Product[3];
                     if (productes!=null) {
                         products[cout++]=productes;
@@ -67,9 +69,12 @@ public class SignIn {
                     else {
                         System.out.println("不存在该商品，请重新选择！");
                     }
+
+                    //退出死循环的条件
                     bool = false;
                     break;
                 } else {
+                    //优化代码，使得每次不会重复输出登录失败警告，只有在全部信息未找到用户信息时才会报错
                     if (i == (user.length - 1)) {
                         System.out.println("登陆失败！密码或者用户名错误，请重新输入！");
                     } else {

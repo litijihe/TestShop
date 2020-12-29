@@ -1,4 +1,4 @@
-public class User {
+public class User {//这个在Java上被称为实体类（bean）
     private String Username;
     private String Password;
     private String Address;

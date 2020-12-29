@@ -5,6 +5,12 @@ public class SignIn {
     public static void main(String[] args) throws ClassNotFoundException {
 
         /*部分常用快捷键如下：
+        1.快速打印内容：
+         在要输出的内容后打上 .sout可以快速打出输出语句
+         用psvm + 回车 可以快速打出mian语句
+
+
+         2.快捷键：
          alt + inter 导包
          Ctrl + alt + L 使得代码自动变换为规范格式
          Ctrl + O  查看我们继承的类或者接口中的方法，以及我们要实现的方法
@@ -32,18 +38,35 @@ public class SignIn {
             User user[] = readExcel.readExcel(inuser);
 
             ReadProductExcel readProductExcel=new ReadProductExcel();
-            Product product[]=readProductExcel.readExcel(inproduct);
+            Product product[]=readProductExcel.getAllProduct(inproduct);
 
             for (int i = 0; i < user.length; i++) {
                 if (UserName.equals(user[i].getUsername()) && UserPassword.equals(user[i].getPassword())) {
                     //System.out.println("登录成功!"）;
                     for (int j=0;j<product.length;j++){
                         System.out.println("商品"+ (j+1) +"信息如下：");
-                        System.out.print("名字："+product[j].getName());
+                        System.out.print("商品ID" + product[j].getId()+"\t");
+                        System.out.print("\t"+"名字："+product[j].getName());
                         System.out.print("\t"+"价格："+product[j].getPrice());
                         System.out.println("\t" + "描述："+product[j].getDesc());
                     }
 
+                    int cout=0;
+                    System.out.print("请输入你要寻找的商品ID：");
+                    String id=sc.next();
+                    inproduct=null;
+                    inproduct= Class.forName("SignIn").getResourceAsStream("/ProductData.xlsx");
+
+                    Product productes=readProductExcel.getProductById(id,inproduct);
+
+                    Product products[] = new Product[3];
+                    if (productes!=null) {
+                        products[cout++]=productes;
+                        System.out.println("该商品已加入购物车中");
+                    }
+                    else {
+                        System.out.println("不存在该商品，请重新选择！");
+                    }
                     bool = false;
                     break;
                 } else {
